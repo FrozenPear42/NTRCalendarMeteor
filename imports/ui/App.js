@@ -7,6 +7,7 @@ import AppBar from 'material-ui/AppBar'
 import Paper from 'material-ui/Paper'
 
 import DayPanel from './DayPanel'
+import AppointmentDetailsDialog from './AppointmentDetailsDialog'
 
 import moment from 'moment'
 
@@ -46,18 +47,19 @@ export default class App extends Component {
       row.push(<td style={styles.tableMeta}>{moment(today).add('days', 7 * r).format('[W]WW YYYY')}</td>)
       rows.push(<tr>{row}</tr>)
 
-
     }
     return (
-      <Paper zDepth={2} style={styles.tableContainer}>
-        <table>
-          <tbody>
-            {header}
-            {rows}
-            {header}
-          </tbody>
-        </table>
-      </Paper>
+      <div>
+        <Paper zDepth={2} style={styles.tableContainer}>
+          <table>
+            <tbody>
+              {header}
+              {rows}
+              {header}
+            </tbody>
+          </table>
+        </Paper>
+      </div>
     )
   }
 
@@ -78,6 +80,7 @@ const styles = {
   tableContainer: {
     marginLeft: 'auto',
     marginRight: 'auto',
+
     marginTop: '2%',
     height: '80%',
     width: '80%'
