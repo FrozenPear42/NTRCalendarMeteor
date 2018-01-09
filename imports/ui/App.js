@@ -6,9 +6,9 @@ import { Tasks, Appointments } from '../api/ApiProvider'
 import AppBar from 'material-ui/AppBar'
 import Paper from 'material-ui/Paper'
 
-import Task from './Task.js'
-import DayPanel from './Task.js'
+import DayPanel from './DayPanel'
 
+import moment from 'moment'
 
 @withTracker(() => {
   return {
@@ -19,52 +19,31 @@ import DayPanel from './Task.js'
 
 export default class App extends Component {
 
-  handleSubmit(event) {
-    event.preventDefault();
-
-    // Find the text field via the React ref
-    const text = ReactDOM.findDOMNode(this.refs.textInput).value.trim();
-
-    Tasks.insert({
-      text,
-      createdAt: new Date(), // current time
-    });
-
-    // Clear form
-    ReactDOM.findDOMNode(this.refs.textInput).value = '';
-  }
-
-  renderTasks() {
-    return this.props.tasks.map((task) => (
-      <Task key={task._id} task={task} />
-    ));
-  }
-
   renderGrid() {
+
+    let today = moment()
 
     const header = (
       <tr>
-        <td>prev</td>
-        <td>Poniedziałek</td>
-        <td>Wtorek</td>
-        <td>Środa</td>
-        <td>Czwartek</td>
-        <td>Piątek</td>
-        <td>Sobota</td>
-        <td>Niedziela</td>
-        <td>next</td>
+        <td style={styles.tableHeaderMeta}><a href='#'>prev</a></td>
+        <td style={styles.tableHeaderContent}>Poniedziałek</td>
+        <td style={styles.tableHeaderContent}>Wtorek</td>
+        <td style={styles.tableHeaderContent}>Środa</td>
+        <td style={styles.tableHeaderContent}>Czwartek</td>
+        <td style={styles.tableHeaderContent}>Piątek</td>
+        <td style={styles.tableHeaderContent}>Sobota</td>
+        <td style={styles.tableHeaderContent}>Niedziela</td>
+        <td style={styles.tableHeaderMeta}><a href='#'>next</a></td>
       </tr>
     )
 
     let rows = []
     for (let r = 0; r < 4; ++r) {
       let row = []
-      row.push(<td>as</td>)
-
+      row.push(<td style={styles.tableMeta}>{moment(today).add('days', 7 * r).format('[W]WW YYYY')}</td>)
       for (let c = 0; c < 7; ++c)
-        row.push(<td>{c}</td>)
-
-      row.push(<td>as</td>)
+        row.push(<td style={styles.tableConetent}><DayPanel day={moment(today).add('days', 7 * r + c)} appointments={[0, 1, 2, 3, 4, 5]} /></td>)
+      row.push(<td style={styles.tableMeta}>{moment(today).add('days', 7 * r).format('[W]WW YYYY')}</td>)
       rows.push(<tr>{row}</tr>)
 
 
@@ -73,9 +52,9 @@ export default class App extends Component {
       <Paper zDepth={2} style={styles.tableContainer}>
         <table>
           <tbody>
-          {header}
-          {rows}
-          {header}
+            {header}
+            {rows}
+            {header}
           </tbody>
         </table>
       </Paper>
@@ -97,10 +76,35 @@ export default class App extends Component {
 
 const styles = {
   tableContainer: {
-      marginLeft: 'auto',
-      marginRight: 'auto',
-      marginTop: '2%',
-      height: '80%',
-      width: '80%'
-  }
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    marginTop: '2%',
+    height: '80%',
+    width: '80%'
+  },
+  tableHeaderMeta: {
+    width: '5%',
+    textAlign: 'center',
+    backgroundColor: '#aaffaa',
+    padding: 8
+  },
+  tableHeaderContent: {
+    width: '8%',
+    textAlign: 'center',
+    backgroundColor: '#aaaaff',
+    padding: 8
+  },
+  tableMeta: {
+    width: '5%',
+    textAlign: 'center',
+    backgroundColor: '#aaaaff',
+    padding: 8
+  },
+
+  tableConetent: {
+    width: '8%',
+    textAlign: 'center',
+    padding: 4
+  },
+
 }
