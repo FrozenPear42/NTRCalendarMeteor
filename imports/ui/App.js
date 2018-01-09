@@ -50,6 +50,7 @@ export default class App extends Component {
     }
     return (
       <div>
+        <AppointmentDetailsDialog  />
         <Paper zDepth={2} style={styles.tableContainer}>
           <table>
             <tbody>
