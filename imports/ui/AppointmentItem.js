@@ -9,8 +9,8 @@ export default class AppointmentItem extends Component {
             <div style={style}>
                 <a href='#' onClick={() => onClick()}>
                     <div>
-                        {moment(start).format("HH:MM[ - ]")}
-                        {moment(end).format("HH:MM[ ]")}
+                        {moment(start).format("HH:mm[ - ]")}
+                        {moment(end).format("HH:mm[ ]")}
                         {name}
                     </div>
                 </a>
