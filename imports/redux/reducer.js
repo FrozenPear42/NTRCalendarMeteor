@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux'
 import { reducer as formReducer } from 'redux-form'
-import date from './date.reducer'
+import calendar from './calendar.reducer'
 
 const rootReducer = combineReducers({
-    date,
+    calendar,
     form: formReducer,
 })
 

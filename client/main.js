@@ -8,8 +8,10 @@ import thunk from 'redux-thunk'
 import logger from 'redux-logger'
 import { Provider } from 'react-redux'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import moment from 'moment/min/moment-with-locales'
 
 import App from '../imports/ui/App.js'
+
 
 const middleware = [
   thunk,
@@ -19,6 +21,7 @@ const middleware = [
 const store = createStore(rootReducer, undefined, applyMiddleware(...middleware))
 
 Meteor.startup(() => {
+  moment.locale('pl')
   render(
     <Provider store={store}>
       <MuiThemeProvider>

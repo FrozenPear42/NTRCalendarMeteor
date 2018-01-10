@@ -6,12 +6,13 @@ import moment from 'moment'
 export default class DayPanel extends Component {
 
     render() {
-        const { day, appointments } = this.props
-        const apps = appointments ? appointments.map(a => <AppointmentItem onClick={() => alert('asd')} style={styles.appointment}/>) : []
+        const { day, appointments, onNewClicked } = this.props
+        const apps = appointments ? appointments.map((a, idx) => <AppointmentItem onClick={() => alert('asd')} appointment={a} style={styles.appointment} key={idx} />) : []
         return (
             <div style={styles.container}>
                 <div style={styles.header}>
                     {moment(day).format('DD MMMM')}
+                    <a href='#' onClick={() => { onNewClicked(day); return true }}>+</a>
                 </div>
                 <div>
                     {apps}

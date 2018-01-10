@@ -37,26 +37,27 @@ export default class AppointmentDetailsDialog extends Component {
                 <form onSubmit={handleSubmit}>
                     <div>
                         <Field
-                            name='from'
+                            name='start'
                             component={TimePicker}
                             // format='24hr'
                             floatingLabelText='From'
+                            autoOk
                         />
                     </div>
                     <div>
                         <Field
-                            name='to'
+                            name='end'
                             component={TimePicker}
                             // format='24hr'
                             floatingLabelText='To'
+                            autoOk
                         />
                     </div>
                     <div>
                         <Field
                             name='name'
                             component={TextField}
-                            floatingLabelText="Name"
-                            defaultValue="Default Value"
+                            floatingLabelText='Name'
                         />
                     </div>
                     <div>
@@ -66,8 +67,7 @@ export default class AppointmentDetailsDialog extends Component {
                             multiLine={true}
                             rows={2}
                             rowsMax={6}
-                            floatingLabelText="Description"
-                            defaultValue="Default Value"
+                            floatingLabelText='Description'
                         />
                     </div>
                 </form>
