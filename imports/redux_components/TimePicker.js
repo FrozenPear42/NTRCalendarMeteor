@@ -11,9 +11,7 @@ export default class TimePicker extends Component {
         return (
             <NTimePicker
                 {...props}
-                onChange={onChange}
-                onFocus={onFocus}
-                onBlur={onBlur}
+                onChange={(event, value) => onChange(value)}
                 value={value}
             />
         )

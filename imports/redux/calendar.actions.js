@@ -1,3 +1,4 @@
+import * as API from '../api/ApiProvider'
 import * as actionTypes from './actions'
 import moment from 'moment'
 
@@ -43,9 +44,13 @@ export function cancelDialog() {
 }
 
 export function submitDialog(data) {
-    console.log(data)
-    return {
-        type: actionTypes.CLOSE_DIALOG,
+    return (dispatch) => {
+        API.addAppointment.call(data, (err, res) => {
+            if (err) console.error(err)
+            dispatch({
+                type: actionTypes.CLOSE_DIALOG,
+            })
+        })
     }
 }
 

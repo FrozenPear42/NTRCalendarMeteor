@@ -8,8 +8,20 @@ import TimePicker from '../redux_components/TimePicker'
 import { connect } from 'react-redux'
 import { reduxForm, Field } from 'redux-form'
 
-@reduxForm({ form: 'appointment' })
+@reduxForm({
+    form: 'appointment',
+    fileds: ['name', 'description', 'day', 'start', 'end'],
+    initialValues: { start: new Date(0), end: new Date(0), day: new Date() }
+})
 export default class AppointmentDetailsDialog extends Component {
+
+    componentDidMount() {
+        const { reset, initialize, appointment } = this.props
+        reset()
+        if (appointment) {
+            initialize(appointment)
+        }
+    }
 
     render() {
         const { visible, handleSubmit, onCancel } = this.props
