@@ -20,6 +20,13 @@ import moment from 'moment'
 
 export default class App extends Component {
 
+  constructor(props) {
+    super(props)
+    this.state = {
+      editDialogOpened: false
+    }
+  }
+
   renderGrid() {
 
     let today = moment()
@@ -41,16 +48,18 @@ export default class App extends Component {
     let rows = []
     for (let r = 0; r < 4; ++r) {
       let row = []
+      
       row.push(<td style={styles.tableMeta}>{moment(today).add('days', 7 * r).format('[W]WW YYYY')}</td>)
       for (let c = 0; c < 7; ++c)
-        row.push(<td style={styles.tableConetent}><DayPanel day={moment(today).add('days', 7 * r + c)} appointments={[0, 1, 2, 3, 4, 5]} /></td>)
+        row.push(<td style={styles.tableConetent}><DayPanel day={moment(today).add('days', 7 * r + c)} appointments={[0, 1, 2, 3, 4]} /></td>)
       row.push(<td style={styles.tableMeta}>{moment(today).add('days', 7 * r).format('[W]WW YYYY')}</td>)
-      rows.push(<tr key={'row'+r}>{row}</tr>)
+      
+      rows.push(<tr key={'row '+r}>{row}</tr>)
 
     }
     return (
       <div>
-        <AppointmentDetailsDialog visible={true} />
+        <AppointmentDetailsDialog visible={this.state.editDialogOpened} onCancel={() => this.setState({editDialogOpened: false})} />
         <Paper zDepth={2} style={styles.tableContainer}>
           <table>
             <tbody>
