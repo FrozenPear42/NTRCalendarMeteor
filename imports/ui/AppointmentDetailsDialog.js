@@ -5,27 +5,45 @@ import FlatButton from 'material-ui/FlatButton'
 import TextField from '../redux_components/TextFiled'
 import TimePicker from '../redux_components/TimePicker'
 
+import moment from 'moment'
+
 import { connect } from 'react-redux'
 import { reduxForm, Field } from 'redux-form'
 
 @reduxForm({
     form: 'appointment',
-    fileds: ['name', 'description', 'day', 'start', 'end'],
-    initialValues: { start: new Date(0), end: new Date(0), day: new Date() }
+    fileds: ['name', 'description', 'day', 'start', 'end']
 })
 export default class AppointmentDetailsDialog extends Component {
 
-    componentDidMount() {
-        const { reset, initialize, appointment } = this.props
-        reset()
-        if (appointment) {
-            initialize(appointment)
+    componentWillReceiveProps(nextProps) {
+        if (this.props.visible != nextProps.visible) {
+            const { reset, initialize } = this.props
+            const { appointment, selectedDay } = nextProps
+            reset()
+            if (appointment)
+                initialize(appointment)
+            else {
+                let time = moment(0)
+                time.year(2000).hour(0)
+                initialize({ day: moment(selectedDay).toDate(), start: time.toDate(), end: time.toDate() })
+            }
         }
     }
 
+
     render() {
-        const { visible, handleSubmit, onCancel } = this.props
+        const { visible, handleSubmit, onCancel, onDelete, appointment, selectedDay } = this.props
+        const day = appointment ? appointment.day : moment(selectedDay).toDate() || new Date()
+        const newAppointment = !appointment
+
         const actions = [
+            <FlatButton
+                label="Delete"
+                secondary={true}
+                disabled={newAppointment}
+                onClick={() => onDelete(appointment)}
+            />,
             <FlatButton
                 label="Cancel"
                 primary={true}
@@ -46,12 +64,12 @@ export default class AppointmentDetailsDialog extends Component {
                 modal={true}
                 open={visible}
             >
+                <p>{moment(day).format('DD MMMM YYYY')}</p>
                 <form onSubmit={handleSubmit}>
                     <div>
                         <Field
                             name='start'
                             component={TimePicker}
-                            // format='24hr'
                             floatingLabelText='From'
                             autoOk
                         />
@@ -60,7 +78,6 @@ export default class AppointmentDetailsDialog extends Component {
                         <Field
                             name='end'
                             component={TimePicker}
-                            // format='24hr'
                             floatingLabelText='To'
                             autoOk
                         />

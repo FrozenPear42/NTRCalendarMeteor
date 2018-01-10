@@ -4,7 +4,8 @@ import moment from 'moment'
 const initialState = {
     day: moment().startOf('isoWeek'),
     dialogOpened: false,
-    selectedAppointment: null
+    selectedAppointment: null,
+    selectedDay: null
 }
 
 export default function (state = initialState, action) {
@@ -17,13 +18,13 @@ export default function (state = initialState, action) {
             return { ...state, day: newDay }
 
         case actionTypes.OPEN_NEW_APPOINTMENT_DIALOG:
-            return { ...state, dialogOpened: true, selectedAppointment: null }
+            return { ...state, dialogOpened: true, selectedAppointment: null, selectedDay: action.day }
 
-        case actionTypes.OPEN_NEW_APPOINTMENT_DIALOG:
-            return { ...state, dialogOpened: true, selectedAppointment: action.appointment }
+        case actionTypes.OPEN_EDIT_APPOINTMENT_DIALOG:
+            return { ...state, dialogOpened: true, selectedAppointment: action.appointment, selectedDay: action.day }
 
         case actionTypes.CLOSE_DIALOG:
-            return { ...state, dialogOpened: false, selectedAppointment: null }
+            return { ...state, dialogOpened: false, selectedAppointment: null, selectedDay: null }
 
         default:
             return state

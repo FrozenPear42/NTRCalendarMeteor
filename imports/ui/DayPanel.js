@@ -6,8 +6,18 @@ import moment from 'moment'
 export default class DayPanel extends Component {
 
     render() {
-        const { day, appointments, onNewClicked } = this.props
-        const apps = appointments ? appointments.map((a, idx) => <AppointmentItem onClick={() => alert('asd')} appointment={a} style={styles.appointment} key={idx} />) : []
+        const { day, appointments, onNewClicked, onExistingClicked } = this.props
+        const apps = appointments ?
+            appointments.filter(a => moment(a.day).isSame(moment(day)))
+                .sort((a, b) => a.start.getTime() - b.start.getTime())
+                .map((a, idx) =>
+                    <AppointmentItem
+                        onClick={() => onExistingClicked(a)}
+                        appointment={a}
+                        style={styles.appointment}
+                        key={idx}
+                    />)
+            : []
         return (
             <div style={styles.container}>
                 <div style={styles.header}>

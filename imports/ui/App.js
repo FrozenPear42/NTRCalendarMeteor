@@ -17,6 +17,7 @@ function mapState(state, ownProps) {
     firstDay: state.calendar.day,
     dialogOpened: state.calendar.dialogOpened,
     selectedAppointment: state.calendar.selectedAppointment,
+    selectedDay: state.calendar.selectedDay,
   }
 }
 
@@ -36,20 +37,25 @@ function mapTracker() {
 @connect(mapState, mapDispatch)
 export default class App extends Component {
 
+  componentDidMount() {
+    const { actions } = this.props
+    actions.setFirstDay(moment())
+  }
+
   renderGrid() {
 
-    const { firstDay, dialogOpened, selectedAppointment, actions, appointments } = this.props
+    const { firstDay, dialogOpened, selectedAppointment, selectedDay, actions, appointments } = this.props
 
     const header = (
       <tr>
         <td style={styles.tableHeaderMeta}><a href='#' onClick={() => { actions.prevWeek(); return true }}>prev</a></td>
-        <td style={styles.tableHeaderContent}>Poniedziałek</td>
-        <td style={styles.tableHeaderContent}>Wtorek</td>
-        <td style={styles.tableHeaderContent}>Środa</td>
-        <td style={styles.tableHeaderContent}>Czwartek</td>
-        <td style={styles.tableHeaderContent}>Piątek</td>
-        <td style={styles.tableHeaderContent}>Sobota</td>
-        <td style={styles.tableHeaderContent}>Niedziela</td>
+        <td style={styles.tableHeaderContent}>Monday</td>
+        <td style={styles.tableHeaderContent}>Tuesday</td>
+        <td style={styles.tableHeaderContent}>Wednesday</td>
+        <td style={styles.tableHeaderContent}>Thursday</td>
+        <td style={styles.tableHeaderContent}>Friday</td>
+        <td style={styles.tableHeaderContent}>Saturady</td>
+        <td style={styles.tableHeaderContent}>Sunday</td>
         <td style={styles.tableHeaderMeta}><a href='#' onClick={() => { actions.nextWeek(); return true }}>next</a></td>
       </tr>
     )
@@ -68,7 +74,8 @@ export default class App extends Component {
             <DayPanel
               day={moment(firstDay).add(7 * r + c, 'days')}
               appointments={appointments}
-              onNewClicked={() => actions.openNewAppointmentDialog()}
+              onNewClicked={day => actions.openNewAppointmentDialog(day)}
+              onExistingClicked={appointment => actions.openEditAppointmentDialog(appointment)}
             />
           </td>
         )
@@ -82,7 +89,10 @@ export default class App extends Component {
         <AppointmentDetailsDialog
           visible={dialogOpened}
           onCancel={() => actions.cancelDialog()}
-          onSubmit={(data) => actions.submitDialog(data)}
+          onSubmit={data => actions.submitDialog(data)}
+          onDelete={appointment => actions.deleteAppointment(appointment)}
+          appointment={selectedAppointment}
+          selectedDay={selectedDay}
         />
         <Paper zDepth={2} style={styles.tableContainer}>
           <table>
@@ -114,8 +124,8 @@ const styles = {
   tableContainer: {
     marginLeft: 'auto',
     marginRight: 'auto',
-
     marginTop: '2%',
+    marginBottom: '2%',
     height: '80%',
     width: '80%'
   },
@@ -140,8 +150,9 @@ const styles = {
 
   tableConetent: {
     width: '8%',
-    textAlign: 'center',
-    padding: 4
+    textAlign: 'flex-start',
+    padding: 4,
+    verticalAlign: 'top'
   },
 
 }

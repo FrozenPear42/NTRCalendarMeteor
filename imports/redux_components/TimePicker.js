@@ -11,6 +11,7 @@ export default class TimePicker extends Component {
         return (
             <NTimePicker
                 {...props}
+                format='24hr'
                 onChange={(event, value) => onChange(value)}
                 value={value}
             />

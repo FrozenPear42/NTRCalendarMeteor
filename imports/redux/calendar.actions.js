@@ -4,9 +4,10 @@ import moment from 'moment'
 
 export function setFirstDay(day) {
     let firstDay = moment(day).startOf('isoWeek')
+    firstDay.hours(0).minutes(0).seconds(0).milliseconds(0)
     return {
         type: actionTypes.SET_DAY,
-        date: firstDay
+        day: firstDay
     }
 }
 
@@ -24,16 +25,18 @@ export function nextWeek() {
     }
 }
 
-export function openNewAppointmentDialog() {
+export function openNewAppointmentDialog(day) {
     return {
         type: actionTypes.OPEN_NEW_APPOINTMENT_DIALOG,
+        day: day
     }
 }
 
 export function openEditAppointmentDialog(appointment) {
     return {
         type: actionTypes.OPEN_EDIT_APPOINTMENT_DIALOG,
-        appointment: appointment
+        appointment: appointment,
+        day: appointment.day
     }
 }
 
@@ -46,6 +49,17 @@ export function cancelDialog() {
 export function submitDialog(data) {
     return (dispatch) => {
         API.addAppointment.call(data, (err, res) => {
+            if (err) console.error(err)
+            dispatch({
+                type: actionTypes.CLOSE_DIALOG,
+            })
+        })
+    }
+}
+
+export function deleteAppointment(appointment) {
+    return (dispatch) => {
+        API.removeAppointment.call(appointment, (err, res) => {
             if (err) console.error(err)
             dispatch({
                 type: actionTypes.CLOSE_DIALOG,

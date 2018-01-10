@@ -28,3 +28,11 @@ export const upsertAppointment = new ValidatedMethod({
     }
 })
 
+export const removeAppointment = new ValidatedMethod({
+    name: 'appointments.removeAppointment',
+    validate: null,
+    run(appointment) {
+        Appointments.remove(appointment._id)
+    }
+})
+
