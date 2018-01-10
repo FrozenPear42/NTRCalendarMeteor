@@ -3,18 +3,13 @@ import { Meteor } from 'meteor/meteor'
 import { render } from 'react-dom'
 
 import { createStore, combineReducers, applyMiddleware } from 'redux'
-import { reducer as formReducer } from 'redux-form'
+import rootReducer from '../imports/redux/reducer'
 import thunk from 'redux-thunk'
 import logger from 'redux-logger'
 import { Provider } from 'react-redux'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 
-
 import App from '../imports/ui/App.js'
-
-const rootReducer = combineReducers({
-  form: formReducer
-})
 
 const middleware = [
   thunk,

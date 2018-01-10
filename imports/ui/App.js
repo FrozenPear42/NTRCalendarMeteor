@@ -45,12 +45,12 @@ export default class App extends Component {
       for (let c = 0; c < 7; ++c)
         row.push(<td style={styles.tableConetent}><DayPanel day={moment(today).add('days', 7 * r + c)} appointments={[0, 1, 2, 3, 4, 5]} /></td>)
       row.push(<td style={styles.tableMeta}>{moment(today).add('days', 7 * r).format('[W]WW YYYY')}</td>)
-      rows.push(<tr>{row}</tr>)
+      rows.push(<tr key={'row'+r}>{row}</tr>)
 
     }
     return (
       <div>
-        <AppointmentDetailsDialog  />
+        <AppointmentDetailsDialog visible={true} />
         <Paper zDepth={2} style={styles.tableContainer}>
           <table>
             <tbody>
