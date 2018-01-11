@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import { withTracker } from 'meteor/react-meteor-data'
 import { Tasks, Appointments } from '../api/ApiProvider'
 import AppBar from 'material-ui/AppBar'
+import FlatButton from 'material-ui/FlatButton'
 import Paper from 'material-ui/Paper'
 import DayPanel from './DayPanel'
 import AppointmentDetailsDialog from './AppointmentDetailsDialog'
@@ -47,7 +48,7 @@ export default class CalendarScreen extends Component {
     }
 
     render() {
-        const { firstDay, dialogOpened, selectedAppointment, selectedDay, actions, appointments } = this.props
+        const { currentUser, firstDay, dialogOpened, selectedAppointment, selectedDay, actions, appointments } = this.props
 
         const header = (
             <tr>
@@ -90,7 +91,10 @@ export default class CalendarScreen extends Component {
 
         return (
             <div>
-                <AppBar title={'Calendar'} />
+                <AppBar
+                    title={'Calendar - ' + currentUser.username}
+                    iconElementRight={<FlatButton label="Log Out" onClick={() => Meteor.logout()} />}
+                />
                 <div>
                     <AppointmentDetailsDialog
                         visible={dialogOpened}

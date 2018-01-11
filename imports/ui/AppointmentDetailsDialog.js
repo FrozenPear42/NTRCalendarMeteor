@@ -4,10 +4,7 @@ import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
 import TextField from '../redux_components/TextFiled'
 import TimePicker from '../redux_components/TimePicker'
-
 import moment from 'moment'
-
-import { connect } from 'react-redux'
 import { reduxForm, Field } from 'redux-form'
 
 @reduxForm({

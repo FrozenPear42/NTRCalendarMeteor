@@ -15,7 +15,7 @@ export default class TextFiled extends Component {
                 onFocus={onFocus}
                 onBlur={onBlur}
                 value={value}
-                errorText={error}
+                errorText={dirty && error ? error : undefined}
             />
         )
     }
