@@ -10,6 +10,7 @@ import { Provider } from 'react-redux'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import moment from 'moment/min/moment-with-locales'
 
+import '../imports/startup/accounts-config.js'
 import App from '../imports/ui/App.js'
 
 

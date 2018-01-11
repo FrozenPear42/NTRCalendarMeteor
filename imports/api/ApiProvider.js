@@ -10,7 +10,14 @@ Appointments.schema = new SimpleSchema({
     day: { type: Date },
     start: { type: Date },
     end: { type: Date },
+    owner: {type: String}
 })
+
+if (Meteor.isServer) {
+    Meteor.publish('appointments', function appointmentsPublication() {
+      return Appointments.find({owner: this.userId})
+    })
+  }
 
 export const addAppointment = new ValidatedMethod({
     name: 'appointments.addAppointment',

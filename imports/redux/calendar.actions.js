@@ -47,6 +47,8 @@ export function cancelDialog() {
 }
 
 export function submitDialog(data) {
+    if (!data.owner)
+        data = { ...data, owner: Meteor.userId() }
     return (dispatch) => {
         API.addAppointment.call(data, (err, res) => {
             if (err) console.error(err)
