@@ -121,12 +121,11 @@ export default class CalendarScreen extends Component {
 
 const styles = {
     tableContainer: {
-        marginLeft: 'auto',
-        marginRight: 'auto',
+        marginLeft: '5%',
+        marginRight: '5%',
         marginTop: '2%',
         marginBottom: '2%',
         height: '80%',
-        width: '80%'
     },
     tableHeaderMeta: {
         width: '5%',

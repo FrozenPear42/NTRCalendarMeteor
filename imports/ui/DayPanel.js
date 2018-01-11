@@ -24,7 +24,7 @@ export default class DayPanel extends Component {
                     {moment(day).format('DD MMMM')}
                     <a href='#' onClick={() => { onNewClicked(day); return true }} style={styles.plus}>+</a>
                 </div>
-                <div>
+                <div style={styles.appointmentsContainer}>
                     {apps}
                 </div>
             </div>
@@ -40,8 +40,12 @@ const styles = {
         borderStyle: 'solid',
         padding: 4,
         height: '140px',
+    },
+    appointmentsContainer: {
+        height: '114px',
         overflowY: 'overlay'
     },
+
     header: {
         borderColor: '#000',
         borderWidth: 1,

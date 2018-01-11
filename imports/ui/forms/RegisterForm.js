@@ -20,7 +20,7 @@ const validate = function (values) {
 @reduxForm({ form: 'register', validate })
 export default class RegisterForm extends Component {
     render() {
-        const { handleSubmit, error } = this.props
+        const { handleSubmit, remoteError } = this.props
         return (
             <div>
                 <h2>Register</h2>

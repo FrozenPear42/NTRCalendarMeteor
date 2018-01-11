@@ -7,7 +7,7 @@ export default class TextFiled extends Component {
     render() {
         let { input, meta, ...props } = this.props
         let { value, onChange, onFocus, onBlur } = input
-        let { error, dirty } = meta
+        let { error, dirty, touched } = meta
         return (
             <NTextField
                 {...props}
@@ -15,7 +15,7 @@ export default class TextFiled extends Component {
                 onFocus={onFocus}
                 onBlur={onBlur}
                 value={value}
-                errorText={dirty && error ? error : undefined}
+                errorText={touched && error ? error : undefined}
             />
         )
     }
