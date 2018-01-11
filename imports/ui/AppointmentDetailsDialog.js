@@ -12,11 +12,11 @@ const validate = function (values) {
     const errors = {}
     if (values.name == undefined || values.name.length == 0)
         errors.name = 'name is required'
-        
+
     if (values.description == undefined || values.description.length == 0)
         errors.description = 'name is required'
 
-    if(moment(values.start).isAfter(moment(values.end)))
+    if (moment(values.start).isAfter(moment(values.end)))
         errors.end = 'End after start'
 
     return errors
@@ -24,7 +24,7 @@ const validate = function (values) {
 
 @reduxForm({
     form: 'appointment',
-    fileds: ['name', 'description', 'day', 'start', 'end'],
+    fileds: ['name', 'description', 'day', 'start', 'end', 'version'],
     validate
 })
 export default class AppointmentDetailsDialog extends Component {
@@ -35,11 +35,11 @@ export default class AppointmentDetailsDialog extends Component {
             const { appointment, selectedDay } = nextProps
             reset()
             if (appointment)
-                initialize(appointment)
+                initialize({ ...appointment, version: appointment.version + 1 })
             else {
                 let time = moment(0)
                 time.year(2000).hour(0)
-                initialize({ day: moment(selectedDay).toDate(), start: time.toDate(), end: time.toDate() })
+                initialize({ day: moment(selectedDay).toDate(), start: time.toDate(), end: time.toDate(), version: 0 })
             }
         }
     }

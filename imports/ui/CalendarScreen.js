@@ -128,7 +128,7 @@ const styles = {
         height: '80%',
     },
     tableHeaderMeta: {
-        width: '5%',
+        width: '3%',
         textAlign: 'center',
         backgroundColor: '#aaffaa',
         padding: 8
@@ -140,12 +140,11 @@ const styles = {
         padding: 8
     },
     tableMeta: {
-        width: '5%',
+        width: '3%',
         textAlign: 'center',
         backgroundColor: '#aaaaff',
         padding: 8
     },
-
     tableConetent: {
         width: '8%',
         textAlign: 'flex-start',
