@@ -7,9 +7,25 @@ import TimePicker from '../redux_components/TimePicker'
 import moment from 'moment'
 import { reduxForm, Field } from 'redux-form'
 
+
+const validate = function (values) {
+    const errors = {}
+    if (values.name == undefined || values.name.length == 0)
+        errors.name = 'name is required'
+        
+    if (values.description == undefined || values.description.length == 0)
+        errors.description = 'name is required'
+
+    if(moment(values.start).isAfter(moment(values.end)))
+        errors.end = 'End after start'
+
+    return errors
+}
+
 @reduxForm({
     form: 'appointment',
-    fileds: ['name', 'description', 'day', 'start', 'end']
+    fileds: ['name', 'description', 'day', 'start', 'end'],
+    validate
 })
 export default class AppointmentDetailsDialog extends Component {
 

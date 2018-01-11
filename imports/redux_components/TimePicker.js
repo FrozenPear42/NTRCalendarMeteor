@@ -14,6 +14,7 @@ export default class TimePicker extends Component {
                 format='24hr'
                 onChange={(event, value) => onChange(value)}
                 value={value}
+                errorText={dirty && error ? error : undefined}
             />
         )
     }
