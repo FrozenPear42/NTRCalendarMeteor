@@ -36,12 +36,15 @@ export const upsertAppointment = new ValidatedMethod({
         let app = appointment._id ? Appointments.findOne({ _id: appointment._id }) : null
         if (app != null) {
             console.log(appointment._id)
+            if (appointment.version < app.version)
+                throw new Meteor.Error('concurrency', 'Concurrency')
             let res = Appointments.update({ _id: appointment._id }, {
                 $set: {
                     name: appointment.name,
                     description: appointment.description,
                     start: appointment.start,
-                    end: appointment.end
+                    end: appointment.end,
+                    version: appointment.version
                 }
             })
             console.log(res)

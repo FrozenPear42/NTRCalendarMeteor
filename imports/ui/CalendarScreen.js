@@ -50,6 +50,12 @@ export default class CalendarScreen extends Component {
     render() {
         const { currentUser, firstDay, dialogOpened, selectedAppointment, selectedDay, actions, appointments } = this.props
 
+        if (selectedAppointment != null) {
+            let app = appointments.filter(a => a._id == selectedAppointment._id)
+            if (app.length != 0 &&  selectedAppointment.version != app[0].version)
+                actions.refreshSelectedAppointment(appointments.filter(a => a._id == selectedAppointment._id)[0])
+        }
+
         const header = (
             <tr>
                 <td style={styles.tableHeaderMeta}><a href='#' onClick={() => { actions.prevWeek(); return true }}>prev</a></td>
@@ -68,7 +74,16 @@ export default class CalendarScreen extends Component {
         for (let r = 0; r < 4; ++r) {
             let row = []
 
-            row.push(<td style={styles.tableMeta} key={`r${r}c${0}`}>{moment(firstDay).add(7 * r, 'days').format('[W]WW YYYY')}</td>)
+            row.push(<td style={styles.tableMeta} key={`r${r}c${8}`}>
+                <div>
+                    <div>
+                        {moment(firstDay).add(7 * r, 'days').format('[W]WW')}
+                    </div>
+                    <div>
+                        {moment(firstDay).add(7 * r, 'days').format('YYYY')}
+                    </div>
+                </div>
+            </td>)
             for (let c = 0; c < 7; ++c)
                 row.push(
                     <td
@@ -83,7 +98,16 @@ export default class CalendarScreen extends Component {
                         />
                     </td>
                 )
-            row.push(<td style={styles.tableMeta} key={`r${r}c${8}`}>{moment(firstDay).add(7 * r, 'days').format('[W]WW YYYY')}</td>)
+            row.push(<td style={styles.tableMeta} key={`r${r}c${8}`}>
+                <div>
+                    <div>
+                        {moment(firstDay).add(7 * r, 'days').format('[W]WW')}
+                    </div>
+                    <div>
+                        {moment(firstDay).add(7 * r, 'days').format('YYYY')}
+                    </div>
+                </div>
+            </td>)
 
             rows.push(<tr key={'row ' + r}>{row}</tr>)
 
@@ -120,15 +144,16 @@ export default class CalendarScreen extends Component {
 }
 
 const styles = {
+
     tableContainer: {
-        marginLeft: '5%',
-        marginRight: '5%',
+        marginLeft: '2%',
+        marginRight: '2%',
         marginTop: '2%',
         marginBottom: '2%',
-        height: '80%',
+        // height: '80%',
     },
     tableHeaderMeta: {
-        width: '3%',
+        width: '2%',
         textAlign: 'center',
         backgroundColor: '#aaffaa',
         padding: 8
@@ -140,7 +165,7 @@ const styles = {
         padding: 8
     },
     tableMeta: {
-        width: '3%',
+        width: '2%',
         textAlign: 'center',
         backgroundColor: '#aaaaff',
         padding: 8

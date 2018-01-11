@@ -11,10 +11,10 @@ import { reduxForm, Field } from 'redux-form'
 const validate = function (values) {
     const errors = {}
     if (values.name == undefined || values.name.length == 0)
-        errors.name = 'name is required'
+        errors.name = 'Name is required'
 
     if (values.description == undefined || values.description.length == 0)
-        errors.description = 'name is required'
+        errors.description = 'Description is required'
 
     if (moment(values.start).isAfter(moment(values.end)))
         errors.end = 'End after start'
@@ -42,6 +42,14 @@ export default class AppointmentDetailsDialog extends Component {
                 initialize({ day: moment(selectedDay).toDate(), start: time.toDate(), end: time.toDate(), version: 0 })
             }
         }
+        
+        if ((this.props.appointment && nextProps.appointment && (this.props.appointment.version != nextProps.appointment.version))) {
+            this.props.onCancel()
+        }
+        if (this.props.appointment && !nextProps.appointment) {
+            this.props.onCancel()
+        }
+        
     }
 
 

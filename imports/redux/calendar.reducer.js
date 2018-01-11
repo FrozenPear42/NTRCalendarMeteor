@@ -23,6 +23,9 @@ export default function (state = initialState, action) {
         case actionTypes.OPEN_EDIT_APPOINTMENT_DIALOG:
             return { ...state, dialogOpened: true, selectedAppointment: action.appointment, selectedDay: action.day }
 
+        case actionTypes.REFRESH_APPOINTMENT:
+            return { ...state, selectedAppointment: action.appointment }
+
         case actionTypes.CLOSE_DIALOG:
             return { ...state, dialogOpened: false, selectedAppointment: null, selectedDay: null }
 

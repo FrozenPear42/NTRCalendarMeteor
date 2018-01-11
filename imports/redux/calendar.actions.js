@@ -40,6 +40,14 @@ export function openEditAppointmentDialog(appointment) {
     }
 }
 
+export function refreshSelectedAppointment(appointment) {
+    return {
+        type: actionTypes.REFRESH_APPOINTMENT,
+        appointment: appointment
+    }
+}
+
+
 export function cancelDialog() {
     return {
         type: actionTypes.CLOSE_DIALOG,

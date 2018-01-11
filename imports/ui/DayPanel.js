@@ -18,9 +18,12 @@ export default class DayPanel extends Component {
                         key={idx}
                     />)
             : []
+        const today = moment()
+        today.hour(0).minutes(0).seconds(0).milliseconds(0)
+        const todayStyle = moment(day).isSame(today) ? { backgroundColor: '#fac' } : {}
         return (
             <div style={styles.container}>
-                <div style={styles.header}>
+                <div style={{ ...styles.header, ...todayStyle }}>
                     {moment(day).format('DD MMMM')}
                     <a href='#' onClick={() => { onNewClicked(day); return true }} style={styles.plus}>+</a>
                 </div>
@@ -40,9 +43,10 @@ const styles = {
         borderStyle: 'solid',
         padding: 4,
         height: '140px',
+        flex: 1
     },
     appointmentsContainer: {
-        height: '114px',
+        height: '100px',
         overflowY: 'overlay'
     },
 
@@ -62,7 +66,6 @@ const styles = {
         borderStyle: 'solid',
         padding: 4,
         marginTop: 2,
-
     },
     plus: {
         marginLeft: 10,
