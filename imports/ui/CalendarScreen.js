@@ -127,7 +127,7 @@ export default class CalendarScreen extends Component {
                         selectedDay={selectedDay}
                     />
                     <Paper zDepth={2} style={styles.tableContainer}>
-                        <table>
+                        <table style={{width: '100%', tableLayout: 'fixed'}}>
                             <tbody>
                                 {header}
                                 {rows}
@@ -148,16 +148,17 @@ const styles = {
         marginRight: '2%',
         marginTop: '2%',
         marginBottom: '2%',
-        // height: '80%',
+        display: 'flex'
+        // width: '90%'
     },
     tableHeaderMeta: {
-        width: '10%',
+        width: '4.5%',
         textAlign: 'center',
         backgroundColor: '#aaffaa',
         padding: 8
     },
     tableHeaderContent: {
-        width: '50%',
+        width: '13%',
         textAlign: 'center',
         backgroundColor: '#aaaaff',
         padding: 8
@@ -171,7 +172,7 @@ const styles = {
     tableConetent: {
         textAlign: 'flex-start',
         verticalAlign: 'top',
-        padding: 4,
+        padding: 0,
     },
 
 }
