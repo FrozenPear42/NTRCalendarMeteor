@@ -52,7 +52,7 @@ export default class CalendarScreen extends Component {
 
         if (selectedAppointment != null) {
             let app = appointments.filter(a => a._id == selectedAppointment._id)
-            if (app.length != 0 &&  selectedAppointment.version != app[0].version)
+            if (app.length != 0 && selectedAppointment.version != app[0].version)
                 actions.refreshSelectedAppointment(appointments.filter(a => a._id == selectedAppointment._id)[0])
         }
 
@@ -74,14 +74,12 @@ export default class CalendarScreen extends Component {
         for (let r = 0; r < 4; ++r) {
             let row = []
 
-            row.push(<td style={styles.tableMeta} key={`r${r}c${8}`}>
+            row.push(<td style={styles.tableMeta} key={`r${r}c${0}`}>
                 <div>
-                    <div>
-                        {moment(firstDay).add(7 * r, 'days').format('[W]WW')}
-                    </div>
-                    <div>
-                        {moment(firstDay).add(7 * r, 'days').format('YYYY')}
-                    </div>
+                    {moment(firstDay).add(7 * r, 'days').format('[W]WW')}
+                </div>
+                <div>
+                    {moment(firstDay).add(7 * r, 'days').format('YYYY')}
                 </div>
             </td>)
             for (let c = 0; c < 7; ++c)
@@ -153,28 +151,27 @@ const styles = {
         // height: '80%',
     },
     tableHeaderMeta: {
-        width: '2%',
+        width: '10%',
         textAlign: 'center',
         backgroundColor: '#aaffaa',
         padding: 8
     },
     tableHeaderContent: {
-        width: '8%',
+        width: '50%',
         textAlign: 'center',
         backgroundColor: '#aaaaff',
         padding: 8
     },
     tableMeta: {
-        width: '2%',
         textAlign: 'center',
+        verticalAlign: 'center',
         backgroundColor: '#aaaaff',
         padding: 8
     },
     tableConetent: {
-        width: '8%',
         textAlign: 'flex-start',
+        verticalAlign: 'top',
         padding: 4,
-        verticalAlign: 'top'
     },
 
 }
